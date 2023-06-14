@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import string
 
 input_log = input('Указать файл лога:')
 output_log = input_log[::-1]
@@ -21,33 +20,38 @@ with open(input_log, 'r') as file:
 with open(backup_log, 'w') as file:
     file.writelines(lines)
     
+with open(input_log, 'r') as file:
+    lines = file.readlines()
+    
 log_lines = lines[2:]
 
 log_lines_output = []
 
 headers_line = log_lines[0]
 
+lines_num =  len(log_lines)
+lines_counter = 0
+
+print(lines_num)
+
 headers = headers_line.split()
 headers = headers[0::2]
 
 print(headers)
 
+while lines_counter <= lines_num:
+    
+
+
+
 for line in log_lines:
     for header in headers:
         header = str(header)
-        line = line.replace(header, '')
-        log_lines_output.append(line)
-
-"""for header in headers:
-    for line in log_lines:
-        header = str(header) + ' '
-        line = line.replace(header, '')
-        log_lines_output.append(line)"""
-        
-#print(log_lines_output)
+        new_line = line.replace(header, "")
+    #log_lines_output.append(new_line)
 
 with open(output_log, 'w') as file:
-    file.writelines(log_lines_output)
+    file.writelines(log_lines)
     
     
     
