@@ -58,6 +58,10 @@ print(log_lines[0])
 with open(output_log, 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerows(log_lines)
+
+for i in headers:
+    i = list(i)
+    
     
 y1_values = []
 y2_values = []
@@ -80,9 +84,9 @@ plt.plot(x_values, y2_values, label="Y2")
 plt.plot(x_values, y3_values, label="Y3")
 plt.plot(x_values, y4_values, label="Y4")
 
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.title("Графики из CSV")
+plt.xlabel("Thread step")
+plt.ylabel("Scale(1:1)")
+plt.title("Plot log from Halscope")
 plt.grid(True)
 plt.legend()
 plt.show()
