@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import csv
-import matplotlib.pyplot as plt
+import matplotlib as plt
 
 input_log = input('Указать файл лога:')
 output_log = input_log[::-1]
@@ -45,19 +45,15 @@ print(headers)
 for i in range(lines_num):
     for header in headers:
         log_lines[i] = log_lines[i].replace(header, '')
-        log_lines[i] = log_lines[i].replace('\n', '')
         log_lines[i] = log_lines[i].replace("+", '')
         log_lines[i] = log_lines[i].replace(",", '.')
-    log_lines[i] = log_lines[i].split()  
-        
-
-print(log_lines[0])
+        #log_lines[i] = log_lines[i].split()  
         
 #TODO разбить строки на элементы списка
 
 with open(output_log, 'w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerows(log_lines)
+    writer.writerows([s] for s in log_lines)
     
 y1_values = []
 y2_values = []
