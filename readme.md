@@ -7,6 +7,9 @@ HOWTO:
     python3 ./plot_log.py
 3. specify log file:
     Select file:/way/to/file/file.log
+
 ![Alt text](terminal.png)
+
 4. analyze graphical log
+
 ![Alt text](plot.png)
