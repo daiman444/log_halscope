@@ -3,14 +3,14 @@
 import csv
 import matplotlib.pyplot as plt
 
-input_log = input('Указать файл лога:')
+input_log = input('Select file:')
 output_log = input_log[::-1]
 index = output_log.find("/")
 
 if index != -1:
     output_log = output_log[index+1:]
 else:
-    print("не удается определить путь для сохранения лога")
+    print("File error")
     
 output_log = output_log[::-1] + '/output_log.csv'
 backup_log = input_log + '.bak'
