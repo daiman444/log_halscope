@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 
 input_log = input('Указать файл лога:')
 output_log = input_log[::-1]
-
 index = output_log.find("/")
 
 if index != -1:
@@ -26,21 +25,20 @@ with open(input_log, 'r') as file:
     lines = file.readlines()
     
 log_lines = lines[2:]
-
 log_lines_output = []
-
 headers_line = log_lines[0]
-
 lines_num =  len(log_lines)
-
-print(lines_num)
-
 headers = headers_line.split()
 headers = headers[0::2]
+headers_list = []
 
-print(type(log_lines[0]))
-
-print(headers)
+for i in headers:
+    i_counter = 1
+    if i not in headers_list:
+        headers_list.append(i)
+    else:
+        i += '_' + str(i_counter)
+        headers_list.append(i)
 
 for i in range(lines_num):
     for header in headers:
@@ -49,11 +47,6 @@ for i in range(lines_num):
         log_lines[i] = log_lines[i].replace("+", '')
         log_lines[i] = log_lines[i].replace(",", '.')
     log_lines[i] = log_lines[i].split()  
-        
-
-print(log_lines[0])
-        
-#TODO разбить строки на элементы списка
 
 with open(output_log, 'w', newline='') as file:
     writer = csv.writer(file)
@@ -62,27 +55,22 @@ with open(output_log, 'w', newline='') as file:
 for i in headers:
     i = list(i)
     
-    
-y1_values = []
-y2_values = []
-y3_values = []
-y4_values = []    
-    
-    
+headers_dict = {}
+for i in headers_list:
+    headers_dict[i] = [] 
+
 with open(output_log, 'r') as file:
     reader = csv.reader(file)
     for row in reader:
-        y1_values.append(float(row[0]))
-        y2_values.append(float(row[1]))
-        y3_values.append(float(row[2]))
-        y4_values.append(float(row[3]))
+        for i in range(len(headers_dict)):
+            dict_key = headers_list[i]
+            headers_dict[dict_key].append(float(row[i]))
         
-x_values = range(len(y1_values))
+x_values = range(len(headers_dict[headers_list[0]]))
 
-plt.plot(x_values, y1_values, label="Y1")
-plt.plot(x_values, y2_values, label="Y2")
-plt.plot(x_values, y3_values, label="Y3")
-plt.plot(x_values, y4_values, label="Y4")
+for i in range(len(headers_list)):
+    dict_key = headers_list[i]    
+    plt.plot(x_values, headers_dict[dict_key], label=str(headers_list[i]))
 
 plt.xlabel("Thread step")
 plt.ylabel("Scale(1:1)")
